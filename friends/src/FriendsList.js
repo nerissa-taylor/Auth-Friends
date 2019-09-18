@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Loader from 'react-loader-spinner';
 import axiosWithAuth from './utils/axiosWithAuth';
+import AddFriend from './AddFriend';
 class FriendsList extends React.Component {
     state = {
         friends: []
@@ -12,36 +13,37 @@ class FriendsList extends React.Component {
         axiosWithAuth()
             .get('/friends')
             .then(res => {
+                console.log(res)
                 this.setState({
-                    friends: res.data.data.filter(
-                        friend => friend.name === 'Ryan' && (friend.id === 3)
-                    )
+                    friends: res.data
+
                 });
             })
             .catch(err => console.log(err));
     };
 
-    formatData = () => {
-        const formattedData = [];
-        console.log(this.state.friends);
-        this.state.friends.forEach((name, age, email, index, arr) => {
-            if (this.state.friend.name === '') {
-                formattedData.push({
-                    name: this.state.friend.name,
-                    age: this.state.friend.age,
-                    email: this.state.friend.email,
-                    id: this.state.friend.id
+    // formatData = () => {
+    //     const formattedData = [];
+    //     console.log(this.state.friends);
+    //     this.state.friends.forEach((name, age, email, index, arr) => {
+    //         if (this.state.friend.name === '') {
+    //             formattedData.push({
+    //                 name: this.state.friend.name,
+    //                 age: this.state.friend.age,
+    //                 email: this.state.friend.email,
+    //                 id: this.state.friend.id
 
-                });
-            };
-        });
-        return formattedData;
-    };
+    //             });
+    //         };
+    //     });
+    //     return formattedData;
+    // };
     render() {
-        const friends = this.formatData();
-        console.log(friends);
+        // const friends = this.formatData();
+        // console.log(friends);
         return (
             <div>
+                <AddFriend />
                 <p>Looking for Friends</p>
 
                 {this.props.fetchingData && (
@@ -53,7 +55,7 @@ class FriendsList extends React.Component {
 
             <div className="friends">
                     <h2>My Friends</h2>
-                    {friends.map(friend => (
+                    {this.state.friends.map(friend => (
                         <div key={friend.id}>
                             <p>Name: {friend.name}</p>
                             <p>Age: {friend.age}</p>
