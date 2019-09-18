@@ -25,7 +25,7 @@ class FriendsList extends React.Component {
         const formattedData = [];
         console.log(this.state.friends);
         this.state.friends.forEach((name, age, email, index, arr) => {
-            if (this.state.friend.name === 'Sean') {
+            if (this.state.friend.name === '') {
                 formattedData.push({
                     name: this.state.friend.name,
                     age: this.state.friend.age,
@@ -57,7 +57,7 @@ class FriendsList extends React.Component {
                         <div key={friend.id}>
                             <p>Name: {friend.name}</p>
                             <p>Age: {friend.age}</p>
-                            <p>email: {friend.height}</p>
+                            <p>email: {friend.email}</p>
                         </div>
 
                     ))}
